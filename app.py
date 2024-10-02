@@ -18,12 +18,16 @@ RDS_PASSWORD = os.getenv('RDS_PASSWORD')
 # Verificar conexión a S3
 def check_s3_connection():
     try:
+        print(f"verificar conexión a S3", flush=True)
+        print(f"AWS_ACCESS_KEY: {AWS_ACCESS_KEY}", flush=True)
+        print(f"AWS_SECRET_KEY: {AWS_SECRET_KEY}", flush=True)
         s3 = boto3.client(
             's3',
             aws_access_key_id=AWS_ACCESS_KEY,
             aws_secret_access_key=AWS_SECRET_KEY
         )
         s3.list_buckets()  # Hacer una llamada simple para verificar la conexión
+        print(f"Verificada conexión a S3", flush=True)
         return True
     except Exception as e:
         print(f"Error de conexión a S3: {e}")
@@ -32,6 +36,8 @@ def check_s3_connection():
 # Verificar conexión a RDS
 def check_rds_connection():
     try:
+        print(f"verificar conexión a RDS", flush=True)
+
         connection = psycopg2.connect(
             host=RDS_HOST,
             port=RDS_PORT,
@@ -43,9 +49,10 @@ def check_rds_connection():
         cursor.execute("SELECT 1")  # Consulta simple para verificar la conexión
         cursor.close()
         connection.close()
+        print(f"Verificada conexión a RDS", flush=True)
         return True
     except Exception as e:
-        print(f"Error de conexión a RDS: {e}")
+        print(f"Error de conexión a RDS: {e}", flush=True)
         return False
 
 # Endpoint para verificar el estado de las conexiones
@@ -60,4 +67,4 @@ def status():
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
