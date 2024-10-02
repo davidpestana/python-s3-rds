@@ -44,8 +44,7 @@ def check_rds_connection():
             database=RDS_DB,
             user=RDS_USER,
             password=RDS_PASSWORD,
-            sslmode='disable',  # Deshabilita SSL
-            ssl_disabled=True
+            ssl_disabled=True  # Deshabilitar SSL en MySQL
         )
         cursor = connection.cursor()
         cursor.execute("SELECT 1")  # Consulta simple para verificar la conexión
