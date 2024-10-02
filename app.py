@@ -43,7 +43,9 @@ def check_rds_connection():
             port=RDS_PORT,
             database=RDS_DB,
             user=RDS_USER,
-            password=RDS_PASSWORD
+            password=RDS_PASSWORD,
+            sslmode='disable',  # Deshabilita SSL
+            ssl_disabled=True
         )
         cursor = connection.cursor()
         cursor.execute("SELECT 1")  # Consulta simple para verificar la conexión
