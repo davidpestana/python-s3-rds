@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    image: ghcr.io/davidpestana/python-s3-rds:master
     container_name: flask-aws-connection
     ports:
       - "5000:5000"
@@ -15,10 +15,6 @@ services:
       - RDS_DB=${RDS_DB}
       - RDS_USER=${RDS_USER}
       - RDS_PASSWORD=${RDS_PASSWORD}
-      - MINIO_URL=http://minio:9000
-    depends_on:
-      - rds
-      - minio
 
   rds:
     image: postgres:13
